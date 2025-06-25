@@ -1,0 +1,16 @@
+tasks: [report2simplified, query2question, report2impression, report2simplified]
+data: train
+method: finetune
+
+n_samples: 5
+debug: False
+num_threads: 16
+num_epochs: 5
+threshold: 0.95
+
+model: openai/gpt-4o-mini
+api_base: null
+api_key: null
+
+student_model: openai/gpt-4o-mini
+local_model_path: null

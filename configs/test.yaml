@@ -1,0 +1,11 @@
+tasks: [dialogue2note, medication2answer, query2question, report2impression]
+data: test
+method: zero-shot # [zero-shot, finetune]
+
+n_samples: 5
+debug: False
+
+model: openai/gpt-4o-mini
+api_base: null
+api_key: null
+local_model_path: null
