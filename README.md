@@ -5,8 +5,6 @@
 ![Overview](assets/fig.png)
 **Figure 1**: MedVAL self-supervised data curation and training pipeline.
 
-Official implementation for [Towards expert-level validation of AI-generated medical text with language models](https://arxiv.org/abs/ARXIV_ID).
-
 ## 🏥 What is MedVAL?
 
 MedVAL is a comprehensive framework for expert-level validation of AI-generated medical text using language models. The system is designed to evaluate the quality, accuracy, and safety of AI-generated medical text across multiple healthcare tasks. The framework supports both model fine-tuning and zero-shot evaluation.
