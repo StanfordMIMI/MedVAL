@@ -21,11 +21,7 @@ conda env create -f env.yml
 conda activate medval
 ```
 
-## 🚀 Usage Instructions
-
-MedVAL supports four main usage scenarios. Each scenario is configured through YAML files and executed via the main `run.py` script.
-
-## Evaluation
+## 🚀 Evaluation Instructions
 
 ```bash
 python run.py --config=test
@@ -69,13 +65,13 @@ api_key: null
 local_model_path: /path/to/local/model
 ```
 
-## Fine-Tuning
+## 🔥 Fine-Tuning Instructions
 
 ```bash
 python run.py --config=train
 ```
 
-### 3. API-based Teacher Models
+### 1. API-based Teacher Models
 
 For fine-tuning a local student model using an API-based teacher model:
 
@@ -103,7 +99,7 @@ student_model: local/STUDENT_MODEL_NAME
 local_model_path: /path/to/student/model
 ```
 
-### 4. Local/Huggingface Models
+### 2. Local/Huggingface Models
 
 For fine-tuning a local student model using a local teacher model:
 
