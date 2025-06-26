@@ -48,9 +48,9 @@ local_model_path: null
 
 ### 2. Local/Huggingface Models
 
-For using local or HuggingFace models:
+For evaluating local or HuggingFace models:
 
-**Configuration**:
+**Configuration (`configs/test.yaml`)**:
 ```yaml
 tasks: [dialogue2note, medication2answer, query2question, report2impression]
 data: test
@@ -75,11 +75,7 @@ python run.py --config=train
 
 For fine-tuning a local student model using an API-based teacher model:
 
-```bash
-python run.py --config=train
-```
-
-**Configuration**:
+**Configuration (`configs/train.yaml`)**:
 ```yaml
 tasks: [report2simplified, query2question, report2impression, report2simplified]
 data: train
