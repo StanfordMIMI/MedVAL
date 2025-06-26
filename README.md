@@ -3,6 +3,7 @@
 [![arXiv](https://img.shields.io/badge/arXiv-ARXIV_ID-b31b1b.svg?style=for-the-badge)](https://arxiv.org/abs/ARXIV_ID)          [![Hugging Face](https://huggingface.co/datasets/huggingface/badges/resolve/main/model-on-hf-md.svg)](https://huggingface.co/stanfordmimi/MedVAL-4B)          [![Hugging Face](https://huggingface.co/datasets/huggingface/badges/resolve/main/dataset-on-hf-md.svg)](https://huggingface.co/datasets/stanfordmimi/MedVAL-Bench/)          [![License](https://img.shields.io/github/license/stanfordmimi/medvae?style=for-the-badge)](LICENSE)
 
 ![Overview](assets/fig.png)
+Figure: MedVAL self-supervised data curation and training pipeline.
 
 Official implementation for [Towards expert-level validation of AI-generated medical text with language models](https://arxiv.org/abs/ARXIV_ID).
 
