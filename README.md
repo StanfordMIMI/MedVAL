@@ -209,6 +209,14 @@ MedVAL/
 └── run.py            # Main execution script
 ```
 
+## 🤝 Contributing
+
+We welcome contributions to improve MedVAL! Please feel free to submit issues, feature requests, or pull requests.
+
+## 🙏 Acknowledgments
+
+This repository is built using [DSPy](https://github.com/stanfordnlp/dspy) for language model fine-tuning.
+
 ## 📎 Citation
 
 If you find this repository useful for your work, please cite the following paper:
@@ -221,15 +229,3 @@ If you find this repository useful for your work, please cite the following pape
   year={2025}
 }
 ```
-
-## 📄 License
-
-This project is licensed under the terms specified in the [LICENSE](LICENSE) file.
-
-## 🤝 Contributing
-
-We welcome contributions to improve MedVAL! Please feel free to submit issues, feature requests, or pull requests.
-
-## 🙏 Acknowledgments
-
-This repository is built using [DSPy](https://github.com/stanfordnlp/dspy) for language model fine-tuning.
