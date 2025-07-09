@@ -4,7 +4,7 @@
 
 ![Overview](assets/fig.png)
 
-**Figure 1** | **MedVAL test-time workflow**. A generator LM produces an output, and MedVAL assesses the output's factual consistency with the input, while assigning a risk grade and determining safety for deployment.
+**Figure 1** | **MedVAL test-time workflow**. A generator LM produces an output, and MedVAL assesses the output's factual consistency with the input, while assigning a risk grade and determining its safety for deployment.
 
 ## 🏥 What is MedVAL?
 
