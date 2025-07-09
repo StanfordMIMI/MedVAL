@@ -165,7 +165,7 @@ api_key: null
 ## 🎯 Configuration Parameters
 
 ### Core Parameters
-- `tasks`: List of tasks for training/evaluation
+- `tasks`: List of tasks for fine-tuning/evaluation
 - `data`: Dataset split (`train` or `test`)
 - `method`: Evaluation method (`zero-shot` or `finetune`)
 - `n_samples`: Number of samples to process (null for all)
@@ -215,7 +215,7 @@ We welcome contributions to improve MedVAL! Please feel free to submit issues, f
 
 ## 🙏 Acknowledgments
 
-This repository is built using [DSPy](https://github.com/stanfordnlp/dspy) for language model fine-tuning.
+This repository is built using [DSPy](https://github.com/stanfordnlp/dspy) for language model fine-tuning/evaluation.
 
 ## 📎 Citation
 
