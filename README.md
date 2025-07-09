@@ -171,7 +171,7 @@ The dataset includes training and test splits for diverse medical tasks.
 
 The MedVAL-4B model can be downloaded from HuggingFace: ```stanfordmimi/MedVAL-4B```.
 
-Once downloaded, you can run evaluation using this model by setting local_model_path: /path/to/medval-4b
+Once downloaded, run evaluation using this model by setting local_model_path ```/path/to/medval-4b```.
 
 ## 🎯 Configuration Parameters
 
