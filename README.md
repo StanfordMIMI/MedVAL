@@ -8,7 +8,7 @@
 
 ## 🏥 What is MedVAL?
 
-MedVAL is a comprehensive framework for expert-level validation of AI-generated medical text using language models. The system is designed to evaluate the quality, accuracy, and safety of AI-generated medical text across multiple healthcare tasks. The framework supports both model fine-tuning and zero-shot evaluation.
+MedVAL is a self-supervised framework for expert-level validation of AI-generated medical text using language models (without requiring physician labels or reference outputs). The system is designed to evaluate the accuracy and safety of AI-generated medical text across multiple medical tasks. The framework supports both model fine-tuning and evaluation.
 
 ## ⚡️ Installation
 
@@ -165,7 +165,13 @@ from datasets import load_dataset
 dataset = load_dataset("stanfordmimi/MedVAL-Bench")
 ```
 
-The dataset includes training and test splits with multiple medical text validation tasks.
+The dataset includes training and test splits for diverse medical tasks.
+
+## 📊 Model
+
+The MedVAL-4B model can be downloaded from HuggingFace: ```stanfordmimi/MedVAL-4B```.
+
+Once downloaded, you can run evaluation using this model by setting local_model_path: /path/to/medval-4b
 
 ## 🎯 Configuration Parameters
 
@@ -198,12 +204,6 @@ results/
 └── finetune/
     └── model_name.csv
 ```
-
-Each results file contains:
-- Input text and outputs
-- Model predictions and reasoning
-- Error assessments and risk grades
-- Physician assessments (ground-truth) for comparison
 
 ## 🏗️ Project Structure
 
