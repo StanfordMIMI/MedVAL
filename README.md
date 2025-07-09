@@ -3,7 +3,8 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2507.03152-b31b1b.svg?style=for-the-badge)](https://arxiv.org/abs/2507.03152)          [![Hugging Face](https://huggingface.co/datasets/huggingface/badges/resolve/main/model-on-hf-md.svg)](https://huggingface.co/stanfordmimi/MedVAL-4B)          [![Hugging Face](https://huggingface.co/datasets/huggingface/badges/resolve/main/dataset-on-hf-md.svg)](https://huggingface.co/datasets/stanfordmimi/MedVAL-Bench/)          [![License](https://img.shields.io/github/license/stanfordmimi/medvae?style=for-the-badge)](LICENSE)
 
 ![Overview](assets/fig.png)
-**Figure 1**: MedVAL self-supervised data curation and training pipeline.
+
+**Figure 1**: MedVAL test-time workflow. A generator LM produces an output, and MedVAL then assesses the output's factual consistency with the input, while assigning a risk grade and determining whether the output is safe for deployment or not.
 
 ## 🏥 What is MedVAL?
 
