@@ -111,12 +111,12 @@ num_threads: 16
 num_epochs: 5
 threshold: 0.95
 
-model: local/TEACHER_MODEL_NAME
+model: local/MODEL_NAME
 api_base: null
 api_key: null
 
-student_model: local/STUDENT_MODEL_NAME
-local_model_path: /path/to/student/model
+student_model: local/MODEL_NAME
+local_model_path: /path/to/local/model
 ```
 
 ## 🔧 API Model Configurations
