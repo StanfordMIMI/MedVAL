@@ -158,13 +158,9 @@ api_key: null
 
 ## 📊 Dataset and Fine-Tuned Model
 
-- MedVAL uses the MedVAL-Bench dataset, automatically loaded from HuggingFace:
-  ```python
-  from datasets import load_dataset
-  dataset = load_dataset("stanfordmimi/MedVAL-Bench")
-  ```
+1. The MedVAL-Bench dataset is automatically loaded from HuggingFace ```load_dataset("stanfordmimi/MedVAL-Bench")```.
 
-- The MedVAL-4B model can be downloaded from HuggingFace (```stanfordmimi/MedVAL-4B```). Once downloaded, run evaluation with MedVAL-4B by setting ```local_model_path: /path/to/medval-4b``` in the config.
+2. The MedVAL-4B model can be downloaded from HuggingFace (```stanfordmimi/MedVAL-4B```). Once downloaded, run evaluation with MedVAL-4B by setting ```python local_model_path: /path/to/medval-4b``` in the config.
 
 ## 🎯 Configuration Parameters
 
