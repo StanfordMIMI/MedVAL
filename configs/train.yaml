@@ -1,4 +1,4 @@
-tasks: [report2simplified, query2question, report2impression, report2simplified]
+tasks: [medication2answer, query2question, report2impression, report2simplified]
 data: train
 method: finetune
 
