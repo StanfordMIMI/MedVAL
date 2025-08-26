@@ -77,7 +77,7 @@ For fine-tuning a local student model using an API-based teacher model:
 
 **Configuration (`configs/train.yaml`)**:
 ```yaml
-tasks: [report2simplified, query2question, report2impression, report2simplified]
+tasks: [medication2answer, query2question, report2impression, report2simplified]
 data: train
 method: finetune
 
@@ -101,7 +101,7 @@ For fine-tuning a local student model using a local teacher model:
 
 **Configuration (`configs/train.yaml`)**:
 ```yaml
-tasks: [report2simplified, query2question, report2impression, report2simplified]
+tasks: [medication2answer, query2question, report2impression, report2simplified]
 data: train
 method: finetune
 
