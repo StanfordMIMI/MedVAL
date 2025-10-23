@@ -164,7 +164,8 @@ api_key: null
    - By default, the MedVAL-Bench dataset is automatically loaded from HuggingFace: ```load_dataset("stanfordmimi/MedVAL-Bench")```.
    - To use a custom CSV file, specify path in `configs/test.yaml`: ```input_csv: /path/to/csv``` (ensure custom CSV has similar column structure to the HuggingFace dataset).
 
-2. The MedVAL-4B model can be downloaded from HuggingFace (```stanfordmimi/MedVAL-4B```). Once downloaded, run evaluation with MedVAL-4B by setting ```local_model_path: /path/to/medval-4b``` in the config.
+2. **MedVAL-4B Model**
+   - MedVAL-4B can be downloaded from HuggingFace (```stanfordmimi/MedVAL-4B```). Once downloaded, run evaluation with MedVAL-4B by setting ```local_model_path: /path/to/medval-4b``` in the config.
 
 ## 🎯 Configuration Parameters
 
