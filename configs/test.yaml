@@ -2,8 +2,9 @@ tasks: [dialogue2note, medication2answer, query2question, report2impression]
 data: test
 method: zero-shot # [zero-shot, finetune]
 
-n_samples: 5
+n_samples: null
 debug: False
+input_csv: null
 
 model: openai/gpt-4o-mini
 api_base: null

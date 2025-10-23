@@ -39,6 +39,7 @@ method: zero-shot # [zero-shot, finetune]
 
 n_samples: null
 debug: False
+input_csv: null  # Optional: Path to custom CSV file
 
 model: openai/gpt-4o-mini
 api_base: null
@@ -58,6 +59,7 @@ method: zero-shot # [zero-shot, finetune]
 
 n_samples: null
 debug: False
+input_csv: null  # Optional: Path to custom CSV file
 
 model: local/MODEL_NAME
 api_base: null
@@ -158,7 +160,9 @@ api_key: null
 
 ## 📊 Dataset and Fine-Tuned Model
 
-1. The MedVAL-Bench dataset is automatically loaded from HuggingFace ```load_dataset("stanfordmimi/MedVAL-Bench")```.
+1. **Dataset Loading:**
+   - By default, the MedVAL-Bench dataset is automatically loaded from HuggingFace: ```load_dataset("stanfordmimi/MedVAL-Bench")```.
+   - To use a custom CSV file, specify path in `configs/test.yaml`: ```input_csv: /path/to/csv``` (ensure custom CSV has similar column structure to the HuggingFace dataset).
 
 2. The MedVAL-4B model can be downloaded from HuggingFace (```stanfordmimi/MedVAL-4B```). Once downloaded, run evaluation with MedVAL-4B by setting ```local_model_path: /path/to/medval-4b``` in the config.
 
@@ -189,9 +193,11 @@ Results are automatically saved to the `results/` directory with the following s
 ```
 results/
 ├── zero-shot/
-│   └── model_name.csv
+│   └── model_name/
+│       └── dataset_name.csv
 └── finetune/
-    └── model_name.csv
+    └── model_name/
+        └── dataset_name.csv
 ```
 
 ## 🏗️ Project Structure

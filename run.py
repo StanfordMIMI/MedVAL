@@ -17,11 +17,12 @@ if __name__ == "__main__":
     api_key = os.environ.get("API_KEY") if config["api_key"] == "${API_KEY}" else config["api_key"]
     n_samples = int(config["n_samples"]) if config["n_samples"] is not None else None
     threshold = config.get("threshold", None)
+    input_csv = config.get("input_csv", None)
 
     if (config["data"] == "train") and (config["model"].startswith("local")):
-        medval = MedVAL(config["tasks"], "local/" + config["local_model_path"], config["api_base"], api_key, config["data"], n_samples, config["debug"], config["method"], threshold)
+        medval = MedVAL(config["tasks"], "local/" + config["local_model_path"], config["api_base"], api_key, config["data"], n_samples, config["debug"], config["method"], threshold, input_csv)
     else:
-        medval = MedVAL(config["tasks"], config["model"], config["api_base"], api_key, config["data"], n_samples, config["debug"], config["method"], threshold)
+        medval = MedVAL(config["tasks"], config["model"], config["api_base"], api_key, config["data"], n_samples, config["debug"], config["method"], threshold, input_csv)
 
     if config["data"] == "train":
         medval.generator._compiled = True
@@ -32,7 +33,7 @@ if __name__ == "__main__":
         if (config["data"] == "train") and (config["model"].startswith("local")):
             medval_student = medval
         else:
-            medval_student = MedVAL(config["tasks"], config["model"], config["api_base"], api_key, config["data"], n_samples, config["debug"], config["method"], threshold)
+            medval_student = MedVAL(config["tasks"], config["model"], config["api_base"], api_key, config["data"], n_samples, config["debug"], config["method"], threshold, input_csv)
             medval_student.student_model = "local/" + config["local_model_path"]
             medval_student._configure_lm()
             medval_student.generator._compiled = True
@@ -56,7 +57,7 @@ if __name__ == "__main__":
 
         for i, x in enumerate(tqdm(dataset)):
             try:
-                result = medval.forward(input=x["input"], task=x["task"], output=x["output"])
+                result = medval.forward(reference=x["reference"], task=x["task"], candidate=x["candidate"])
             except Exception as e:
                 print(f"Error processing item {i}: {str(e)}")
                 result = {"attack_prediction": None, "err": None, "reason": None}
@@ -68,7 +69,9 @@ if __name__ == "__main__":
             df.at[i, "lm_risk_grade"] = result["attack_prediction"]
             df.at[i, "lm_error_assessment"] = result["err"]
             df.at[i, "lm_reasoning"] = result["reason"]
-        df = df[["#", "id", "task", "input", "reference_output", "output", "lm_reasoning", "lm_error_assessment", "physician_error_assessment", "lm_risk_grade", "physician_risk_grade"]]
+        
+        df = df[["#", "id", "task", "reference", "target", "candidate", "lm_reasoning", "lm_error_assessment", "physician_error_assessment", "lm_risk_grade", "physician_risk_grade"]]
+        df = df.rename(columns={"reference": "input", "target": "reference_output", "candidate": "output"})
         medval.save_results(df, config["method"])
         
         if config['model'].startswith("local"):

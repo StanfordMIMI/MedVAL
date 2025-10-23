@@ -4,7 +4,7 @@ from typing import Literal
 
 class MedVAL_Validator(dspy.Signature):
     """
-    Evaluate the output in comparison to the input composed by an expert.
+    Evaluate a candidate in comparison to the reference composed by an expert.
     
     Instructions:
     1. Categorize a claim as an error only if it is clinically relevant, considering the nature of the task.
@@ -14,7 +14,7 @@ class MedVAL_Validator(dspy.Signature):
        - For verbose tasks, evaluate whether the additional content introduces factual inconsistency.
     """
     instruction: str = dspy.InputField()
-    input: str = dspy.InputField()
-    output: str = dspy.InputField()
+    reference: str = dspy.InputField()
+    candidate: str = dspy.InputField()
     errors: str = dspy.OutputField(description=errors_prompt)
     risk_level: Literal[1, 2, 3, 4] = dspy.OutputField(description=risk_levels_prompt)

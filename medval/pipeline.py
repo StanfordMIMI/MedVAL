@@ -14,7 +14,7 @@ def scale_to_unit_interval(val, num_levels):
     return (val - 1) / (num_levels - 1)
 
 class MedVAL(dspy.Module):
-    def __init__(self, tasks, model, api_base, api_key, data, n_samples, debug, method, threshold):
+    def __init__(self, tasks, model, api_base, api_key, data, n_samples, debug, method, threshold, input_csv):
         self.tasks = tasks
         self.model_name = model
         self.api_base = api_base
@@ -24,6 +24,7 @@ class MedVAL(dspy.Module):
         self.debug = debug
         self.method = method
         self.threshold = threshold
+        self.input_csv = input_csv
         self.student_model = None
         self.generator = dspy.ChainOfThought(MedVAL_Generator).deepcopy()
         self.validator = dspy.ChainOfThought(MedVAL_Validator).deepcopy()
@@ -38,7 +39,7 @@ class MedVAL(dspy.Module):
     def _configure_lm(self):
         if (self.data == "train") and (self.model_name.startswith("local")):
             dspy.settings.experimental = True
-            lm = dspy.LM(model=f"openai/local:{"/".join(self.model_name.split("/")[1:])}", provider=LocalProvider())
+            lm = dspy.LM(model=f"openai/local:{'/'.join(self.model_name.split('/')[1:])}", provider=LocalProvider())
             lm.launch()
             dspy.configure(lm=lm)
             
@@ -56,9 +57,14 @@ class MedVAL(dspy.Module):
                 dspy.configure(lm=lm)
 
     def load_data(self):
-        hf_dataset = load_dataset("stanfordmimi/MedVAL-Bench")
-        dataset_split = hf_dataset["train"] if self.data == "train" else hf_dataset["test"]
-        df = dataset_split.to_pandas()
+        if self.input_csv:
+            df = pd.read_csv(self.input_csv)
+        else:
+            hf_dataset = load_dataset("stanfordmimi/MedVAL-Bench")
+            dataset_split = hf_dataset["train"] if self.data == "train" else hf_dataset["test"]
+            df = dataset_split.to_pandas()
+        
+        df = df.rename(columns={k: v for k, v in {"input": "reference", "reference_output": "target", "output": "candidate"}.items() if k in df.columns and v not in df.columns})
         df = df[df['task'].isin(self.tasks)]
         df = df.head(self.n_samples) if self.n_samples is not None else df
         print(f"\nTasks included: {', '.join(self.tasks)}")
@@ -68,30 +74,30 @@ class MedVAL(dspy.Module):
         df.to_csv(temp_csv_path, index=False)
             
         if self.data == "train":
-            full_dataset = self.dl.from_csv(temp_csv_path, fields=("input", "reference_output", "task"), input_keys=("input", "reference_output", "task"))
+            full_dataset = self.dl.from_csv(temp_csv_path, fields=("reference", "target", "task"), input_keys=("reference", "target", "task"))
             os.remove(temp_csv_path)
             return full_dataset, None
         else:
-            full_dataset = self.dl.from_csv(temp_csv_path, fields=("input", "reference_output", "task", "output"), input_keys=("input", "task", "output"))
+            full_dataset = self.dl.from_csv(temp_csv_path, fields=("reference", "target", "task", "candidate"), input_keys=("reference", "task", "candidate"))
             os.remove(temp_csv_path)
             return df, full_dataset
 
-    def generate(self, input, attack_level, task):
+    def generate(self, reference, attack_level, task):
         adversarial_instruction = self.prompts[task] + adversarial_attack_base + adversarial_attacks[attack_level-1] + "\n" + error_categories
-        result = self.generator(instruction=adversarial_instruction, input=input)
-        return result["output"]
+        result = self.generator(instruction=adversarial_instruction, reference=reference)
+        return result["candidate"]
 
-    def forward(self, input, task, output=None, reference_output=None):
-        if output == None:
-            random.seed(hash(input) % (2**32))
+    def forward(self, reference, task, candidate=None, target=None):
+        if candidate == None:
+            random.seed(hash(reference) % (2**32))
             attack_level = random.randint(1, len(adversarial_attacks))
-            output = self.generate(input=input, attack_level=attack_level, task=task)
+            candidate = self.generate(reference=reference, attack_level=attack_level, task=task)
 
-        result = self.validator(instruction=self.prompts[task], input=input, output=output)
+        result = self.validator(instruction=self.prompts[task], reference=reference, candidate=candidate)
         
         if (self.data == "train"):
-            output_clean = self.generate(input=input, attack_level=1, task=task) if reference_output == None else reference_output
-            result_clean = self.validator(instruction=self.prompts[task], input=input, output=output_clean)
+            candidate_clean = self.generate(reference=reference, attack_level=1, task=task) if target == None else target
+            result_clean = self.validator(instruction=self.prompts[task], reference=reference, candidate=candidate_clean)
             return dspy.Prediction(reason=result["reasoning"], err=result["errors"], attack_prediction=result["risk_level"], attack_level=attack_level, clean_prediction=result_clean["risk_level"])
         
         return dspy.Prediction(reason=result["reasoning"], err=result["errors"], attack_prediction=result["risk_level"])
@@ -119,6 +125,13 @@ class MedVAL(dspy.Module):
 
         results_path = f"results/{method}/"
         os.makedirs(results_path, exist_ok=True)
-        file_path = f"{results_path}{self.model_name.split('/')[-1]}.csv"
+        
+        if self.input_csv:
+            csv_name = os.path.splitext(os.path.basename(self.input_csv))[0]
+            file_path = f"{results_path}{self.model_name.split('/')[-1]}/{csv_name}.csv"
+        else:
+            file_path = f"{results_path}{self.model_name.split('/')[-1]}/medval-bench.csv"
+        
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
         df.to_csv(file_path, index=False)
         print(f"\nResults saved to: {file_path}\n")

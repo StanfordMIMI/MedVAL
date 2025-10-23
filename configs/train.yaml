@@ -2,7 +2,7 @@ tasks: [medication2answer, query2question, report2impression, report2simplified]
 data: train
 method: finetune
 
-n_samples: 5
+n_samples: null
 debug: False
 num_threads: 16
 num_epochs: 5
