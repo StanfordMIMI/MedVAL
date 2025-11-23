@@ -1,6 +1,21 @@
 import dspy
-from utils.prompts import errors_prompt, risk_levels_prompt
-from typing import Literal
+from utils.prompts import errors_prompt, risk_levels_prompt, task_keys, instruction_mappings_prompt
+from typing import Literal, List
+from pydantic import BaseModel, Field
+
+class ErrorAssessment(BaseModel):
+    error_occurrence: str = Field(description="The exact snippet of text in the candidate where the error occurred")
+    error: str = Field(description="Why this is an error")
+    category: str = Field(description="Error category from the 11 categories")
+    reasoning: str = Field(description="The reasoning why this part of the candidate is an error")
+
+class DetectTask(dspy.Signature):
+    """
+    Detect the intended task from the reference text and the generated candidate
+    """
+    reference: str = dspy.InputField()
+    candidate: str = dspy.InputField()
+    task: Literal[*task_keys] = dspy.OutputField(description=instruction_mappings_prompt)
 
 class MedVAL_Validator(dspy.Signature):
     """
@@ -17,4 +32,5 @@ class MedVAL_Validator(dspy.Signature):
     reference: str = dspy.InputField()
     candidate: str = dspy.InputField()
     errors: str = dspy.OutputField(description=errors_prompt)
+    structured_errors: List[ErrorAssessment] = dspy.OutputField(description=errors_prompt)
     risk_level: Literal[1, 2, 3, 4] = dspy.OutputField(description=risk_levels_prompt)
