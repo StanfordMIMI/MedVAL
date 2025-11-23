@@ -16,6 +16,8 @@ MedVAL is a self-supervised framework for expert-level validation of AI-generate
 
 Create and activate the conda environment:
 
+Remove `numactl` from `env.yml` if you are using MacOS.
+
 ```bash
 conda env create -f env.yml
 conda activate medval

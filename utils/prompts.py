@@ -40,3 +40,25 @@ adversarial_attack_base = """
 Guidelines:
 - If asked to inject errors, introduce real-world clinical errors to simulate ecologically meaningful degradation rather than unrealistic, worst-case outputs.
 - The candidate should be """
+
+task_keys = (
+    "report2simplified",
+    "impression2simplified",
+    "report2impression",
+    "bhc2spanish",
+    "query2question",
+    "dialogue2note",
+    "medication2answer"
+)
+
+instruction_mappings_prompt = """
+{
+    "report2simplified": "Create a simplified, patient-friendly version of the reference.\n1. Reference Description: The original text containing medical terminology.\n2. Candidate Description: The simplified, patient-friendly, and easy-to-understand version of the text.\n",
+    "impression2simplified": "Create a simplified, patient-friendly version of the reference.\n1. Reference Description: The original text containing medical terminology.\n2. Candidate Description: The simplified, patient-friendly, and easy-to-understand version of the text.\n",
+    "report2impression": "Summarize the radiology report findings into an impression with minimal text.\n1. Reference Description: The findings section of the radiology report.\n2. Candidate Description: The impression section of the radiology report with minimal text.\n",
+    "bhc2spanish": "Translate the brief hospital course into Spanish.\n1. Reference Description: The brief hospital course section of the discharge note.\n2. Candidate Description: The Spanish-translated version of the brief hospital course.\n",
+    "query2question": "Summarize the patient health query into one question of 15 words or less.\n1. Reference Description: The patient health query.\n2. Candidate Description: The patient health question of 15 words or less.\n",
+    "dialogue2note": "Summarize the patient/doctor dialogue into an assessment and plan.\n1. Reference Description: The original patient/doctor dialogue.\n2. Candidate Description: The assessment and plan section.\n",
+    "medication2answer": "Answer the following medication-related patient health question.\n1. Reference Description: The medication-related patient health question.\n2. Candidate Description: The answer to the medication-related question.\n"
+}
+"""
