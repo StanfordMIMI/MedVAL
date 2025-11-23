@@ -6,6 +6,11 @@ from pathlib import Path
 from collections import defaultdict
 import time
 
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
@@ -29,7 +34,7 @@ def load_test_data():
     for _, row in df.iterrows():
         risk_grade = row.get('physician_risk_grade', '')
 
-        if risk_grade is None:
+        if not risk_grade:
             continue
 
         test_cases.append({
@@ -45,7 +50,7 @@ def load_test_data():
     return test_cases
 
 
-def configure_validator(model="openai/gpt-4o-mini"):
+def configure_validator(model="openai/gpt-4o"):
     """Initialize DSPy and validator modules"""
     api_key = os.environ.get("API_KEY") or os.environ.get("OPENAI_API_KEY")
 
@@ -78,6 +83,8 @@ def run_validation(modules, reference, candidate, expected_task=None):
 
         return {
             "success": True,
+            "input": reference,
+            "candidate": candidate,
             "detected_task": detected.task,
             "expected_task": expected_task,
             "task_correct": (detected.task == expected_task) if expected_task else None,
@@ -89,6 +96,8 @@ def run_validation(modules, reference, candidate, expected_task=None):
     except Exception as e:
         return {
             "success": False,
+            "input": reference,
+            "candidate": candidate,
             "detected_task": None,
             "expected_task": expected_task,
             "task_correct": False,
@@ -128,10 +137,29 @@ def print_case_result(case, result, verbose=False):
             task_indicator = f"✗ (detected: {result['detected_task']}, expected: {case['task']})"
 
         print(f"{status} {risk_indicator} {case['id']} | Task: {task_indicator}")
-        print(f"    Expected Risk: {expected_risk}/4  |  Actual Risk: {actual_risk}/4")
+        print(f"    Expected Risk: {expected_risk}/4  |  Actual Risk: {actual_risk}/4\n")
+
+        print(f"    REFERENCE INPUT (Original Medical Text):")
+        ref_preview = case['reference'][:200] + "..." if len(case['reference']) > 200 else case['reference']
+        print(f"      {ref_preview}")
+        print()
+
+        print(f"    CANDIDATE OUTPUT (AI-Generated Response Being Evaluated):")
+        cand_preview = case['candidate'][:200] + "..." if len(case['candidate']) > 200 else case['candidate']
+        print(f"      {cand_preview}")
+        print()
+
+        print(f"    ERRORS DETECTED ({len(result['errors'])} total):")
+        if result['errors']:
+            for i, error in enumerate(result['errors'], 1):
+                print(f"      {i}. {error}")
+        else:
+            print(f"      None")
+        seperator = "\n" + "-" * 90 + "\n"
+        print(seperator)
 
         if verbose and isinstance(result['errors'], list) and len(result['errors']) > 0:
-            print(f"    Errors Found: {len(result['errors'])}")
+            print(f"    Detailed Error Analysis:")
             for i, error in enumerate(result['errors'][:2], 1):
                 print(f"      {i}. {error.category}")
     else:

@@ -64,4 +64,3 @@ logs/
 temp/
 agents/
 temp.csv
-condaenv.*.requirements.txt
