@@ -10,25 +10,12 @@ This directory contains comprehensive test cases for the MedVAL dynamic validato
 
 ## Setup
 
-Choose either **conda** OR **uv** for your environment management (they are mutually exclusive).
-
-### Option 1: Using conda
+### Using conda
 
 ```bash
 # Create conda environment
 conda create -f env.yml
 conda activate medval
-```
-
-### Option 2: Using uv
-
-```bash
-# Install uv if not already installed
-curl -LsSf https://astral.sh/uv/install.sh | sh
-# or on macOS: brew install uv
-
-# Install dependencies
-uv add dspy datasets transformers torch pytest
 ```
 
 ## Dataset
@@ -64,7 +51,6 @@ export OPENAI_API_KEY="your-openai-api-key"
 
 ### Running Tests
 
-**If using conda:**
 ```bash
 # Activate environment
 conda activate medval
@@ -89,64 +75,6 @@ python tests/run.py --model openai/gpt-4o
 
 # Run first 5 cases only (for quick testing)
 python tests/run.py --limit 5
-```
-
-**If using uv:**
-```bash
-# Run all tests
-uv run tests/run.py
-
-# Run specific risk level
-uv run tests/run.py --risk-level 4
-
-# Run specific task
-uv run tests/run.py --task dialogue2note
-
-# Verbose output with error details
-uv run tests/run.py --verbose
-
-# Save results to JSON
-uv run tests/run.py --output results.json
-
-# Test with different model
-uv run tests/run.py --model openai/gpt-4o
-
-# Run first 5 cases only (for quick testing)
-uv run tests/run.py --limit 5
-```
-
-### Running with Pytest
-
-**If using conda:**
-```bash
-conda activate medval
-
-# Run all tests
-pytest tests/test_validator.py -v
-
-# Run specific test
-pytest tests/test_validator.py::test_dialogue2note_risk1 -v
-
-# Run with detailed output
-pytest tests/test_validator.py -v -s
-
-# Run only risk level tests
-pytest tests/test_validator.py -k "risk_level" -v
-```
-
-**If using uv:**
-```bash
-# Run all tests
-uv run pytest tests/test_validator.py -v
-
-# Run specific test
-uv run pytest tests/test_validator.py::test_dialogue2note_risk1 -v
-
-# Run with detailed output
-uv run pytest tests/test_validator.py -v -s
-
-# Run only risk level tests
-uv run pytest tests/test_validator.py -k "risk_level" -v
 ```
 
 ## Example Output
@@ -264,12 +192,11 @@ The MedVAL-Bench dataset includes the following fields:
 
 ## Tips
 
-1. **Choose one workflow**: Use either conda OR uv, not both
-2. **API Costs**: Each test case makes 2 LLM calls (detection + validation). Full dataset = 530 cases = 1060 API calls
-3. **Use `--limit`**: Test first 5-10 cases to verify setup before full run
-4. **Compare Models**: Run same tests with different models to compare accuracy
-5. **Save Results**: Use `--output` to track performance over time
-6. **Filter Tests**: Use `--task` or `--risk-level` to focus on specific scenarios
+1. **API Costs**: Each test case makes 2 LLM calls (detection + validation). Full dataset = 530 cases = 1060 API calls
+2. **Use `--limit`**: Test first 5-10 cases to verify setup before full run
+3. **Compare Models**: Run same tests with different models to compare accuracy
+4. **Save Results**: Use `--output` to track performance over time
+5. **Filter Tests**: Use `--task` or `--risk-level` to focus on specific scenarios
 
 ## Troubleshooting
 
@@ -280,45 +207,11 @@ export API_KEY="your-key-here"
 export OPENAI_API_KEY="your-key-here"
 ```
 
-### "Module not found"
-
-**If using conda:**
-```bash
-conda activate medval
-pip install -e .
-# Or install specific packages
-pip install dspy datasets transformers
-```
-
-**If using uv:**
-```bash
-uv pip install -e .
-# Or install specific packages
-uv pip install dspy datasets transformers
-```
-
-### "Command not found: uv"
-```bash
-# Install uv
-curl -LsSf https://astral.sh/uv/install.sh | sh
-# or on macOS
-brew install uv
-
-# Restart terminal
-```
-
 ### DSPy Pydantic Issues
 If errors aren't returned as `List[ErrorAssessment]`, check DSPy version:
 
-**If using conda:**
 ```bash
 python -c "import dspy; print(dspy.__version__)"
-# Should be ≥2.5
-```
-
-**If using uv:**
-```bash
-uv run python -c "import dspy; print(dspy.__version__)"
 # Should be ≥2.5
 ```
 
@@ -326,7 +219,6 @@ uv run python -c "import dspy; print(dspy.__version__)"
 
 ### Testing Changes
 
-**If using conda:**
 ```bash
 conda activate medval
 
@@ -338,30 +230,6 @@ python tests/run.py --task dialogue2note --limit 10
 
 # Full test run
 python tests/run.py --output results.json
-
-# All pytest tests
-pytest tests/test_validator.py -v
-
-# With coverage
-pytest tests/test_validator.py --cov=medval
-```
-
-**If using uv:**
-```bash
-# Quick test (5 cases)
-uv run tests/run.py --limit 5
-
-# Test specific task you're working on
-uv run tests/run.py --task dialogue2note --limit 10
-
-# Full test run
-uv run tests/run.py --output results.json
-
-# All pytest tests
-uv run pytest tests/test_validator.py -v
-
-# With coverage
-uv run pytest tests/test_validator.py --cov=medval
 ```
 
 ## References
@@ -369,6 +237,3 @@ uv run pytest tests/test_validator.py --cov=medval
 - [MedVAL Paper](https://arxiv.org/abs/2507.03152) - Original research paper
 - [MedVAL-Bench Dataset](https://huggingface.co/datasets/stanfordmimi/MedVAL-Bench) - HuggingFace dataset
 - [MedVAL-4B Model](https://huggingface.co/stanfordmimi/MedVAL-4B) - Fine-tuned model
-- [DSPy Documentation](https://dspy-docs.vercel.app/) - DSPy framework
-- [uv Documentation](https://github.com/astral-sh/uv) - Fast Python package installer
-- [Conda Documentation](https://docs.conda.io/) - Environment management

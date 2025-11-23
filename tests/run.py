@@ -237,25 +237,16 @@ def main():
     parser = argparse.ArgumentParser(
         description="Run MedVAL validator tests using HuggingFace MedVAL-Bench dataset",
         epilog="""
-Environment Setup (choose one):
-  Option 1 - Using conda:
+Environment Setup:
+  Using conda:
     1. conda activate medval
     2. export API_KEY="your-openai-api-key"
     3. python tests/run.py [options]
 
-  Option 2 - Using uv:
-    1. export API_KEY="your-openai-api-key"
-    2. uv run tests/run.py [options]
-
-Examples with conda:
+Examples:
   python tests/run.py --limit 5
   python tests/run.py --task dialogue2note --risk-level 4
   python tests/run.py --model openai/gpt-4o --output results.json
-
-Examples with uv:
-  uv run tests/run.py --limit 5
-  uv run tests/run.py --task dialogue2note --risk-level 4
-  uv run tests/run.py --model openai/gpt-4o --output results.json
         """,
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
