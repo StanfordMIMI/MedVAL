@@ -1,6 +1,6 @@
 # MedVAL: Toward Expert-Level Medical Text Validation with Language Models
 
-[![arXiv](https://img.shields.io/badge/arXiv-2507.03152-b31b1b.svg?style=for-the-badge)](https://arxiv.org/abs/2507.03152)          [![Hugging Face](https://huggingface.co/datasets/huggingface/badges/resolve/main/model-on-hf-md.svg)](https://huggingface.co/stanfordmimi/MedVAL-4B)          [![Hugging Face](https://huggingface.co/datasets/huggingface/badges/resolve/main/dataset-on-hf-md.svg)](https://huggingface.co/datasets/stanfordmimi/MedVAL-Bench/)          [![License](https://img.shields.io/github/license/stanfordmimi/medval?style=for-the-badge)](LICENSE)
+[![Nature Paper](https://img.shields.io/badge/npj%20digital%20medicine-Paper-blue?style=for-the-badge)](https://doi.org/10.1038/s41746-026-03084-5)    [![arXiv](https://img.shields.io/badge/arXiv-2507.03152-b31b1b.svg?style=for-the-badge)](https://arxiv.org/abs/2507.03152)          [![Hugging Face](https://huggingface.co/datasets/huggingface/badges/resolve/main/model-on-hf-md.svg)](https://huggingface.co/stanfordmimi/MedVAL-4B)          [![Hugging Face](https://huggingface.co/datasets/huggingface/badges/resolve/main/dataset-on-hf-md.svg)](https://huggingface.co/datasets/stanfordmimi/MedVAL-Bench/)          [![License](https://img.shields.io/github/license/stanfordmimi/medval?style=for-the-badge)](LICENSE)
 
 ![Overview](assets/fig.png)
 
