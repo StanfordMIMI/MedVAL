@@ -229,10 +229,11 @@ This repository is built using [DSPy](https://github.com/stanfordnlp/dspy) for l
 If you find this repository useful for your work, please cite the following paper:
 
 ```bibtex
-@article{aali2025medval,
-  title={MedVAL: Toward Expert-Level Medical Text Validation with Language Models},
-  author={Asad Aali and Vasiliki Bikia and Maya Varma and Nicole Chiou and Sophie Ostmeier and Arnav Singhvi and Magdalini Paschali and Ashwin Kumar and Andrew Johnston and Karimar Amador-Martinez and Eduardo Juan Perez Guerrero and Paola Naovi Cruz Rivera and Sergios Gatidis and Christian Bluethgen and Eduardo Pontes Reis and Eddy D. Zandee van Rilland and Poonam Laxmappa Hosamani and Kevin R Keet and Minjoung Go and Evelyn Ling and David B. Larson and Curtis Langlotz and Roxana Daneshjou and Jason Hom and Sanmi Koyejo and Emily Alsentzer and Akshay S. Chaudhari},
-  journal={arXiv preprint arXiv:2507.03152},
-  year={2025}
+@article{aali2026toward,
+  title={Toward expert-level medical text validation with language models},
+  author={Aali, Asad and Bikia, Vasiliki and Varma, Maya and Chiou, Nicole and Ostmeier, Sophie and Singhvi, Arnav and Paschali, Magdalini and Kumar, Ashwin and Johnston, Andrew and Amador-Martinez, Karimar and others},
+  journal={Npj Digital Medicine},
+  year={2026},
+  publisher={Nature Publishing Group UK, London}
 }
 ```
